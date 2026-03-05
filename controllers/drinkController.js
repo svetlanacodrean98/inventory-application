@@ -10,7 +10,20 @@ async function getDrinkById(req, res) {
         throw new CustomNotFoundError("Drink not found");
     }
 
-    res.send(`Drink Name: ${drink.name}`);
+    // res.send(`Drink Name: ${drink.name}`);
+    res.render("drink", {
+        title: "Drink",
+        links: db.getAllLinks(), 
+        item: drink
+    });
 };
 
-module.exports = { getDrinkById };
+function getAllDrinks(req, res) {
+    res.render("drinks", {
+        title: "Drinks",
+        links: db.getAllLinks(), 
+        list: db.getAllDrinks() 
+    });
+};
+
+module.exports = { getDrinkById, getAllDrinks };

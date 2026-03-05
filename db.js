@@ -15,6 +15,10 @@ const snacks = [
     { id: 5, name: "Sunflower Seeds" }
 ];
 
+const links = [
+    { href: "/", text: "Home" },
+];
+
 async function getDrinkById(drinkId) {
     return drinks.find(drink => drink.id === drinkId);
 };
@@ -23,4 +27,22 @@ async function getSnackById(snackId) {
     return snacks.find(snack => snack.id === snackId);
 }
 
-module.exports = { getDrinkById, getSnackById };
+function getAllDrinks() {
+    return drinks;
+}
+
+function getAllSnacks() {
+    return snacks;
+}
+
+function getAllLinks() {
+    return links;
+}
+
+module.exports = { 
+    getDrinkById, 
+    getSnackById,
+    getAllDrinks,
+    getAllSnacks,
+    getAllLinks
+};
