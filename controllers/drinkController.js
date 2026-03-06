@@ -1,4 +1,4 @@
-const database = require("../database");
+const localDb = require("../db/local_db");
 const db = require("../db/queries");
 const CustomNotFoundError = require("../errors/CustomNotFoundError");
 
@@ -12,7 +12,7 @@ async function getDrinkById(req, res) {
 
     res.render("drink", {
         title: "Drink",
-        links: database.getAllLinks(), 
+        links: localDb.getAllLinks(), 
         item: drink
     });
 };
@@ -21,7 +21,7 @@ async function getAllDrinks(req, res) {
     const drinks = await db.getAllDrinks();
     res.render("drinks", {
         title: "Drinks",
-        links: database.getAllLinks(), 
+        links: localDb.getAllLinks(), 
         list: drinks
     });
 };

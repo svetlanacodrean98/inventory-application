@@ -1,8 +1,8 @@
-const database = require("../database");
+const localDb = require("../db/local_db");
 
 function getIndex(req, res) {
     res.render("index", {
-        links: database.getAllLinks()
+        links: localDb.getAllLinks()
     });
 };
 
