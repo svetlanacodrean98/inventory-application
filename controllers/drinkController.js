@@ -1,10 +1,10 @@
-const db = require("../db");
+const database = require("../database");
+const db = require("../db/queries");
 const CustomNotFoundError = require("../errors/CustomNotFoundError");
 
 async function getDrinkById(req, res) {
-
     const { drinkId } = req.params;
-    const drink = await db.getDrinkById(Number(drinkId));
+    const drink = await db.getDrinkById(Number(req.params.drinkId));
 
     if (!drink) {
         throw new CustomNotFoundError("Drink not found");
@@ -12,16 +12,17 @@ async function getDrinkById(req, res) {
 
     res.render("drink", {
         title: "Drink",
-        links: db.getAllLinks(), 
+        links: database.getAllLinks(), 
         item: drink
     });
 };
 
-function getAllDrinks(req, res) {
+async function getAllDrinks(req, res) {
+    const drinks = await db.getAllDrinks();
     res.render("drinks", {
         title: "Drinks",
-        links: db.getAllLinks(), 
-        list: db.getAllDrinks() 
+        links: database.getAllLinks(), 
+        list: drinks
     });
 };
 
@@ -31,9 +32,9 @@ function createDrinkGet(req, res) {
     });
 };
 
-function createDrinkPost(req, res) {
+async function createDrinkPost(req, res) {
     const { name } = req.body;
-    db.addDrink({ name });
+    await db.insertDrink(name);
     res.redirect("/drinks");
 }
 
@@ -45,9 +46,9 @@ async function updateDrinkGet(req, res) {
     })
 }
 
-function updateDrinkPost(req, res) {
+async function updateDrinkPost(req, res) {
     const { name } = req.body;
-    db.updateDrink(req.params.drinkId, name);
+    await db.updateDrink(req.params.drinkId, name);
     res.redirect("/drinks");
 }
 

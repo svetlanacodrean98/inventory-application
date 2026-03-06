@@ -1,10 +1,10 @@
-const db = require("../db");
+const database = require("../database");
+const db = require("../db/queries");
 const CustomNotFoundError = require("../errors/CustomNotFoundError");
 
 async function getSnackById(req, res) {
-
     const { snackId } = req.params;
-    const snack = await db.getSnackById(Number(snackId));
+    const snack = await db.getSnackById(Number(req.params.snackId));
 
     if (!snack) {
         throw new CustomNotFoundError("Snack not found");
@@ -12,16 +12,17 @@ async function getSnackById(req, res) {
 
     res.render("snack", {
         title: "Snack",
-        links: db.getAllLinks(), 
+        links: database.getAllLinks(), 
         item: snack
     });
 };
 
-function getAllSnacks(req, res) {
+async function getAllSnacks(req, res) {
+    const snacks = await db.getAllSnacks();
     res.render("snacks", {
         title: "Snacks",
-        links: db.getAllLinks(), 
-        list: db.getAllSnacks() 
+        links: database.getAllLinks(), 
+        list: snacks
     });
 };
 
@@ -31,9 +32,9 @@ function createSnackGet(req, res) {
     });
 };
 
-function createSnackPost(req, res) {
+async function createSnackPost(req, res) {
     const { name } = req.body;
-    db.addSnack({ name });
+    await db.insertSnack(name);
     res.redirect("/snacks");
 }
 
@@ -45,9 +46,9 @@ async function updateSnackGet(req, res) {
     })
 }
 
-function updateSnackPost(req, res) {
+async function updateSnackPost(req, res) {
     const { name } = req.body;
-    db.updateSnack(req.params.snackId, name);
+    await db.updateSnack(req.params.snackId, name);
     res.redirect("/snacks");
 }
 
