@@ -1,9 +1,14 @@
 const { Router } = require("express");
-const { getSnackById, getAllSnacks } = require("../controllers/snackController");
+const snackController = require("../controllers/snackController");
 
 const snackRouter = Router();
 
-snackRouter.get("/", getAllSnacks);
-snackRouter.get("/:snackId", getSnackById);
+snackRouter.get("/", snackController.getAllSnacks);
+snackRouter.get("/create", snackController.createSnackGet);
+snackRouter.post("/create", snackController.createSnackPost);
+snackRouter.get("/:snackId/update", snackController.updateSnackGet);
+snackRouter.post("/:snackId/update", snackController.updateSnackPost);
+snackRouter.get("/:snackId", snackController.getSnackById);
+snackRouter.post("/:snackId/delete", snackController.deleteSnackPost);
 
 module.exports = snackRouter;

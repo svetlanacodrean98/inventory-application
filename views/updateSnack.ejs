@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+</head>
+<body>
+    <h2><%= title %></h2>
+    <form action="/snacks/<%= snack.id %>/update" method="POST">
+        <input type="text" name="name" id="name" value="<%= snack.name %>" required>
+        <button type="submit">Update snack</button>
+    </form>
+    <a href="/snacks">Back</a>
+</body>
+</html>

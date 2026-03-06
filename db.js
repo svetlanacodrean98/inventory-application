@@ -7,6 +7,8 @@ const drinks = [
     { id: 6, name: "Mate Tea" }
 ];
 
+let drinksCount = drinks.length;
+
 const snacks = [
     { id: 1, name: "Beef Jerky" },
     { id: 2, name: "Protein Bar" },
@@ -14,6 +16,8 @@ const snacks = [
     { id: 4, name: "Wasabi Coated Peanuts" },
     { id: 5, name: "Sunflower Seeds" }
 ];
+
+let snacksCount = snacks.length;
 
 const links = [
     { href: "/", text: "Home" },
@@ -39,10 +43,56 @@ function getAllLinks() {
     return links;
 }
 
+function addDrink({ name }) {
+    drinksCount++;
+    const drink = { id: drinksCount, name: name };
+    drinks.push(drink);
+}
+
+async function updateDrink(id, name) {
+    let drink = await getDrinkById(Number(id));
+    drink.id = Number(id);
+    drink.name = name;
+}
+
+async function deleteDrink(id) {
+    let drink = await getDrinkById(Number(id));
+    const index = drinks.indexOf(drink);
+    if (index > -1) {
+        drinks.splice(index, 1);
+    }
+}
+
+function addSnack({ name }) {
+    snacksCount++;
+    const snack = { id: snacksCount, name: name };
+    snacks.push(snack);
+}
+
+async function updateSnack(id, name) {
+    let snack = await getSnackById(Number(id));
+    snack.id = Number(id);
+    snack.name = name;
+}
+
+async function deleteSnack(id) {
+    let snack = await getSnackById(Number(id));
+    const index = snacks.indexOf(snack);
+    if (index > -1) {
+        snacks.splice(index, 1);
+    }
+}
+
 module.exports = { 
     getDrinkById, 
     getSnackById,
     getAllDrinks,
     getAllSnacks,
-    getAllLinks
+    getAllLinks,
+    addDrink,
+    updateDrink,
+    deleteDrink,
+    addSnack,
+    updateSnack,
+    deleteSnack
 };

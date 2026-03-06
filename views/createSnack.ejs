@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+</head>
+<body>
+    <h2><%= title %></h2>
+    <form action="/snacks/create" method="POST">
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name" required>
+        <button type="submit">Submit</button>
+    </form>
+    <a href="/snacks">Back</a>
+</body>
+</html>

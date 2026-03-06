@@ -25,4 +25,43 @@ function getAllDrinks(req, res) {
     });
 };
 
-module.exports = { getDrinkById, getAllDrinks };
+function createDrinkGet(req, res) {
+    res.render("createDrink", {
+        title: "Create drink"
+    });
+};
+
+function createDrinkPost(req, res) {
+    const { name } = req.body;
+    db.addDrink({ name });
+    res.redirect("/drinks");
+}
+
+async function updateDrinkGet(req, res) {
+    const drink = await db.getDrinkById(Number(req.params.drinkId));
+    res.render("updateDrink", {
+        title: "Update drink",
+        drink: drink
+    })
+}
+
+function updateDrinkPost(req, res) {
+    const { name } = req.body;
+    db.updateDrink(req.params.drinkId, name);
+    res.redirect("/drinks");
+}
+
+function deleteDrinkPost(req, res) {
+    db.deleteDrink(req.params.drinkId);
+    res.redirect("/drinks");
+}
+
+module.exports = { 
+    getDrinkById, 
+    getAllDrinks,
+    createDrinkGet,
+    createDrinkPost,
+    updateDrinkGet,
+    updateDrinkPost,
+    deleteDrinkPost
+};
