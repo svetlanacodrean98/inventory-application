@@ -25,6 +25,14 @@ create table if not exists snacks (
 insert into snacks (name)
     values ('Beef Jerky'), ('Protein Bar'), ('Sriracha Coated Cashwes'), 
     ('Wasabi Coated Peanuts'), ('Sunflower Seeds');
+
+drop table if exists users;
+
+create table if not exists users (
+    id integer primary key generated always as identity,
+    username varchar (255),
+    password varchar (255)
+);
 `;
 
 async function main() {

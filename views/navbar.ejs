@@ -7,5 +7,21 @@
                 </a>
             </li>
         <% } %>
+        <div class="auth-section">
+            <% if (locals.currentUser) { %>
+                <h2>WELCOME BACK <%= currentUser.username %>!</h2>
+                <a href="/log-out">LOG OUT</a>
+            <% } else { %>
+                <h3>Please log in or sign up</h3>
+                <form action="/log-in" method="POST">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" placeholder="username" type="text">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="text">
+                    <button type="submit">Log In</button>
+                </form>
+                <a href="/sign-up">SIGN UP</a>
+            <% } %>
+        </div>
     </ul>
 </nav>

@@ -44,6 +44,20 @@ async function deleteSnack(id) {
     await pool.query("delete from snacks where id = $1", [id]);
 }
 
+async function insertUser(username, password) {
+    await pool.query("insert into users (username, password) values ($1, $2)", [username, password]);
+}
+
+async function getUserbyUsername(username) {
+    const { rows } = await pool.query("select * from users where username = $1", [username]);
+    return rows[0];
+}
+
+async function getUserById(id) {
+    const { rows } = await pool.query("select * from users where id = $1", [id]);
+    return rows[0];
+}
+
 module.exports = {
     getAllDrinks,
     insertDrink,
@@ -54,5 +68,8 @@ module.exports = {
     insertSnack,
     updateSnack,
     getSnackById,
-    deleteSnack
+    deleteSnack,
+    insertUser,
+    getUserbyUsername,
+    getUserById
 }
